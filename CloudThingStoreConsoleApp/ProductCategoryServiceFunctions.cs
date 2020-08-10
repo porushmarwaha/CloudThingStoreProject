@@ -5,23 +5,23 @@ using CloudThingStore.Exceptions;
 using CloudThingStore.Services;
 namespace CloudThingStoreConsoleApp {
     public class ProductCategoryServiceFunctions {
-        ProductCategoryService catgoryListService = new ProductCategoryService ();
+        ProductCategoryService catgoryService = new ProductCategoryService ();
         List<ProductCategory> productCategory = new List<ProductCategory> ();
-        SubCategoryService subCategoryListService = new SubCategoryService();
+        SubCategoryService subCategoryService = new SubCategoryService();
         ProductCategory category;
         int id = 0;
         string name = "";
         internal void Add () {
             Console.Write ($"\nPlease enter Category - ");
             try {
-                catgoryListService.Add (Console.ReadLine ());
+                catgoryService.Add (Console.ReadLine ());
             } catch (DuplicateCategoryException e) {
                 System.Console.WriteLine (e.Message);
             }
         }
         internal void Print () {
             Console.WriteLine ("\nList of Category");
-            productCategory = catgoryListService.Get ();
+            productCategory = catgoryService.Get ();
             if (productCategory.Count == 0) {
                 Console.WriteLine ("List is Empty");
                 return;
@@ -39,7 +39,7 @@ namespace CloudThingStoreConsoleApp {
                 Console.WriteLine (e.Message);
             }
             try {
-                catgoryListService.Update (id, name);
+                catgoryService.Update (id, name);
             } catch (CategoryNotExistException e) {
                 Console.WriteLine (e.Message);
             } catch (DuplicateCategoryException e) {
@@ -50,17 +50,17 @@ namespace CloudThingStoreConsoleApp {
             Console.Write ("\nPlease enter Id or Name- ");
             name = Console.ReadLine();
             try {
-                category = catgoryListService.Get (int.Parse (name));
+                category = catgoryService.Get (int.Parse (name));
             } catch {
-                category = catgoryListService.Get (name);
+                category = catgoryService.Get (name);
             }
-            catgoryListService.Get (Console.ReadLine ());
+            catgoryService.Get (Console.ReadLine ());
             Console.WriteLine ($"Id- {category.id} Name - {category.name}");
         }
         internal void Delete () {
             Console.Write ("\nPlease enter Id - ");
             try {
-                if (catgoryListService.Delete (int.Parse (Console.ReadLine ())))
+                if (catgoryService.Delete (int.Parse (Console.ReadLine ())))
                     Console.WriteLine ($"Deleted Successfully");
                 else Console.WriteLine ($"Id not existed");
             } catch (FormatException ex) {
@@ -76,8 +76,7 @@ namespace CloudThingStoreConsoleApp {
             }catch(FormatException e){
                 Console.WriteLine(e.Message);
             }
-            subCategoryListService.Add(id,name);
-
+            subCategoryService.Add(id,name);
         }
     }
 }

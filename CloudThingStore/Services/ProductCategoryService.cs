@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using CloudThingStore.Entities;
 using CloudThingStore.Exceptions;
-
 namespace CloudThingStore.Services {
     public class ProductCategoryService {
         private List<ProductCategory> _productCategories = new List<ProductCategory> ();
