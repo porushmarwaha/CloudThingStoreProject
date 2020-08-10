@@ -77,11 +77,15 @@ namespace CloudThingStoreConsoleApp {
         internal void PrintAllCategories(ProductCategoryService categoryService)
         {
             Console.WriteLine ("\nList of Category");
+            try{
             var productCategories = categoryService.Get ();
             foreach (var productCategory in productCategories) {
                 Console.WriteLine ($"ID - {productCategory.Id} NAME - {productCategory.Name}");
-                category.SubCategories.ForEach (element =>
-                    Console.WriteLine ($"     ID - {element.Id} NAME - {element.Name}"));
+                productCategory.SubCategories.ForEach (element =>
+                    Console.WriteLine ($"   SUB    ID - {element.Id} NAME - {element.Name}"));
+            }
+            }catch(NullReferenceException e){
+                Console.WriteLine(e.Message);
             }
         }
     }
