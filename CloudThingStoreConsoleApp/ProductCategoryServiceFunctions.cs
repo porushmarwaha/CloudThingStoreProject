@@ -7,7 +7,7 @@ namespace CloudThingStoreConsoleApp {
     public class ProductCategoryServiceFunctions {
         ProductCategoryService catgoryService = new ProductCategoryService ();
         List<ProductCategory> productCategory = new List<ProductCategory> ();
-        SubCategoryService subCategoryService = new SubCategoryService();
+        SubCategoryService subCategoryService = new SubCategoryService ();
         ProductCategory category;
         int id = 0;
         string name = "";
@@ -27,7 +27,7 @@ namespace CloudThingStoreConsoleApp {
                 return;
             }
             productCategory.ForEach (element =>
-                Console.WriteLine ($"Id - {element.id}  Name - {element.name}")); 
+                Console.WriteLine ($"Id - {element.id}  Name - {element.name}"));
         }
         internal void Update () {
             Console.Write ("\nPlease enter Id - ");
@@ -48,7 +48,7 @@ namespace CloudThingStoreConsoleApp {
         }
         internal void Search () {
             Console.Write ("\nPlease enter Id or Name- ");
-            name = Console.ReadLine();
+            name = Console.ReadLine ();
             try {
                 category = catgoryService.Get (int.Parse (name));
             } catch {
@@ -67,16 +67,16 @@ namespace CloudThingStoreConsoleApp {
                 Console.WriteLine (ex.Message);
             }
         }
-        internal void AddSubCategory (){
-            Console.Write("\nPlease enter Category Id -");
-            try{
-                id = int.Parse(Console.ReadLine());
-                Console.Write("\nPlease type Sub category Name - ");
-                name = Console.ReadLine();
-            }catch(FormatException e){
-                Console.WriteLine(e.Message);
+        internal void AddSubCategory () {
+            Console.Write ("\nPlease enter Category Id -");
+            try {
+                id = int.Parse (Console.ReadLine ());
+                Console.Write ("\nPlease type Sub category Name - ");
+                name = Console.ReadLine ();
+            } catch (FormatException e) {
+                Console.WriteLine (e.Message);
             }
-            subCategoryService.Add(id,name);
+            subCategoryService.Add (id, name);
         }
     }
 }
