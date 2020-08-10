@@ -8,28 +8,28 @@ namespace CloudThingStore.Services {
         private ProductCategory _category;
         private int _count = 0;
         public ProductCategory Add (string name) {
-            if (_productCategories.Exists (element => element.name == name.ToLower ())) 
+            if (_productCategories.Exists (element => element.Name == name.ToLower ()))
                 throw new DuplicateCategoryException (name);
 
-                _category = new ProductCategory { id = ++_count, name = name.ToLower () };
-                _productCategories.Add (_category);
-                return _category;
+            _category = new ProductCategory { Id = ++_count, Name = name.ToLower () };
+            _productCategories.Add (_category);
+            return _category;
         }
         public ProductCategory Update (int id, string name) {
-            if (!_productCategories.Exists (element => element.id == id))
+            if (!_productCategories.Exists (element => element.Id == id))
                 throw new CategoryNotExistException (id);
 
-            if (_productCategories.Exists (element => element.name == name.ToLower ()))
+            if (_productCategories.Exists (element => element.Name == name.ToLower ()))
                 throw new DuplicateCategoryException (name);
-                
+
             _category = _FindObjectById (id);
-            _category.name = name.ToLower ();
+            _category.Name = name.ToLower ();
             return _category;
         }
         public List<ProductCategory> Get () => _productCategories;
         public ProductCategory Get (int id) => _FindObjectById (id);
-        public ProductCategory Get (string name) => _productCategories.FirstOrDefault (element => element.name == name.ToLower ());
+        public ProductCategory Get (string name) => _productCategories.FirstOrDefault (element => element.Name == name.ToLower ());
         public bool Delete (int id) => _productCategories.Remove (_FindObjectById (id));
-        private ProductCategory _FindObjectById (int id) => _productCategories.FirstOrDefault (element => element.id == id);
+        private ProductCategory _FindObjectById (int id) => _productCategories.FirstOrDefault (element => element.Id == id);
     }
 }

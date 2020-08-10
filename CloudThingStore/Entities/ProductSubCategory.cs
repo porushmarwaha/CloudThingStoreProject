@@ -1,7 +1,8 @@
-namespace CloudThingStore.Entities{
-    public class ProductSubCategory{
-        public int id { get; set; }
-        public string name { get; set; }
-        public int categoryId{ get; set; }
+namespace CloudThingStore.Entities {
+    public class ProductSubCategory {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int CategoryId { get; set; }
+
     }
 }
