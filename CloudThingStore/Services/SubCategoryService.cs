@@ -1,5 +1,4 @@
 using CloudThingStore.Entities;
-
 namespace CloudThingStore.Services
 {
     public class SubCategoryService
@@ -12,6 +11,5 @@ namespace CloudThingStore.Services
             category.subCategories.Add(subCategory);
             return subCategory;
         }
- 
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using CloudThingStore.Entities;
 using CloudThingStore.Exceptions;
 using CloudThingStore.Services;
-
 namespace CloudThingStoreConsoleApp {
     public class ProductCategoryServiceFunctions {
         ProductCategoryService catgoryListService = new ProductCategoryService ();
