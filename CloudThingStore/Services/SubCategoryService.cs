@@ -4,13 +4,13 @@ using CloudThingStore.Exceptions;
 namespace CloudThingStore.Services {
     public class SubCategoryService {
         private int _count = 0;
-        public ProductCategoryService _service { get; set; }
+        public ProductCategoryService _Service { get; set; }
         public SubCategoryService(ProductCategoryService service){
-            this._service = service;
+            this._Service = service;
         }
         public ProductSubCategory Add (int categoryId, string name ) {
             //Get Product Category from Product Category Service class 
-            var category = _service.Get (categoryId);
+            var category = _Service.Get (categoryId);
 
             //Check if the category is null then throw an excetion
             if(category == null)
@@ -27,7 +27,7 @@ namespace CloudThingStore.Services {
         }
         public List<ProductSubCategory> Get(int categoryId){
             //check weather the category Id Exist of not
-            var categoty = _service.Get(categoryId);
+            var categoty = _Service.Get(categoryId);
             if(categoty == null)
                 throw new CategoryNotExistException(categoryId);
             
@@ -35,4 +35,4 @@ namespace CloudThingStore.Services {
             return categoty.SubCategories;
         }
     }
-}
+}   

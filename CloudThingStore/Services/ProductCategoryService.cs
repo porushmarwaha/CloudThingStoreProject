@@ -4,16 +4,15 @@ using CloudThingStore.Entities;
 using CloudThingStore.Exceptions;
 namespace CloudThingStore.Services {
     public class ProductCategoryService {
-        private List<ProductCategory> _productCategories = new List<ProductCategory> ();
-        private ProductCategory _category;
+        private readonly List<ProductCategory> _productCategories = new List<ProductCategory> ();
         private int _count = 0;
         public ProductCategory Add (string name) {
             if (_productCategories.Exists (element => element.Name == name.ToLower ()))
                 throw new DuplicateCategoryException (name);
 
-            _category = new ProductCategory { Id = ++_count, Name = name.ToLower () };
-            _productCategories.Add (_category);
-            return _category;
+            var category = new ProductCategory { Id = ++_count, Name = name.ToLower () };
+            _productCategories.Add (category);
+            return category;
         }
         public ProductCategory Update (int id, string name) {
             if (!_productCategories.Exists (element => element.Id == id))
@@ -22,9 +21,9 @@ namespace CloudThingStore.Services {
             if (_productCategories.Exists (element => element.Name == name.ToLower ()))
                 throw new DuplicateCategoryException (name);
 
-            _category = _FindObjectById (id);
-            _category.Name = name.ToLower ();
-            return _category;
+            var category = _FindObjectById (id);
+            category.Name = name.ToLower ();
+            return category;
         }
         public List<ProductCategory> Get () => _productCategories;
         public ProductCategory Get (int id) => _FindObjectById (id);

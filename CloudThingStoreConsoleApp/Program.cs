@@ -1,7 +1,10 @@
 ﻿using System;
+using CloudThingStore.Services;
 namespace CloudThingStoreConsoleApp {
     class Program {
         static void Main (string[] args) {
+            ProductCategoryService categoryService = new ProductCategoryService();
+            SubCategoryService subCategoryService = new SubCategoryService(categoryService);
             int input = 0;
             ProductCategoryServiceFunctions function = new ProductCategoryServiceFunctions ();
             while (true) {
@@ -15,25 +18,25 @@ namespace CloudThingStoreConsoleApp {
                 }
                 switch (input) {
                     case 1:
-                        function.Add ();
+                        function.Add (categoryService);
                         break;
                     case 2:
-                        function.Print ();
+                        function.Print (categoryService);
                         break;
                     case 3:
-                        function.Update ();
+                        function.Update (categoryService);
                         break;
                     case 4:
-                        function.Search ();
+                        function.Search (categoryService);
                         break;
                     case 5:
-                        function.Delete ();
+                        function.Delete (categoryService);
                         break;
                     case 6:
-                        function.AddSubCategory ();
+                        function.AddSubCategory (subCategoryService);
                         break;
                     case 7:
-                        function.PrintAllCategories ();
+                        function.PrintAllCategories (categoryService);
                         break;
                     case 8:
                         Environment.Exit (0);

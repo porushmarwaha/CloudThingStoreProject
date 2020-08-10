@@ -4,12 +4,10 @@ using CloudThingStore.Exceptions;
 using CloudThingStore.Services;
 namespace CloudThingStoreConsoleApp {
     public class ProductCategoryServiceFunctions {
-        ProductCategoryService categoryService = new ProductCategoryService ();
-        SubCategoryService subCategoryService = new SubCategoryService(categoryService);
         ProductCategory category;
         int id = 0;
         string name = "";
-        internal void Add () {
+        internal void Add (ProductCategoryService categoryService) {
             Console.Write ($"\nPlease enter Category - ");
             try {
                 categoryService.Add (Console.ReadLine ());
@@ -17,7 +15,7 @@ namespace CloudThingStoreConsoleApp {
                 Console.WriteLine (e.Message);
             }
         }
-        internal void Print () {
+        internal void Print (ProductCategoryService categoryService) {
             Console.WriteLine ("\nList of Category");
             var categoryList = categoryService.Get ();
             if (categoryList.Count == 0) {
@@ -27,7 +25,7 @@ namespace CloudThingStoreConsoleApp {
             categoryList.ForEach (element =>
                 Console.WriteLine ($"Id - {element.Id}  Name - {element.Name}")); 
         }
-        internal void Update () {
+        internal void Update (ProductCategoryService categoryService) {
             Console.Write ("\nPlease enter Id - ");
             try {
                 id = int.Parse (Console.ReadLine ());
@@ -44,7 +42,7 @@ namespace CloudThingStoreConsoleApp {
                 Console.WriteLine (e.Message);
             }
         }
-        internal void Search () {
+        internal void Search (ProductCategoryService categoryService) {
             Console.Write ("\nPlease enter Id or Name- ");
             name = Console.ReadLine ();
             try {
@@ -55,7 +53,7 @@ namespace CloudThingStoreConsoleApp {
             categoryService.Get (Console.ReadLine ());
             Console.WriteLine ($"Id- {category.Id} Name - {category.Name}");
         }
-        internal void Delete () {
+        internal void Delete (ProductCategoryService categoryService) {
             Console.Write ("\nPlease enter Id - ");
             try {
                 if (categoryService.Delete (int.Parse (Console.ReadLine ())))
@@ -65,7 +63,7 @@ namespace CloudThingStoreConsoleApp {
                 Console.WriteLine (ex.Message);
             }
         }
-        internal void AddSubCategory () {
+        internal void AddSubCategory (SubCategoryService subCategoryService) {
             Console.Write ("\nPlease enter Category Id -");
             try {
                 id = int.Parse (Console.ReadLine ());
@@ -74,14 +72,14 @@ namespace CloudThingStoreConsoleApp {
             } catch (FormatException e) {
                 Console.WriteLine (e.Message);
             }
-            // var subCategoryService = new SubCategoryService();  
             subCategoryService.Add (id, name);
         }
-        internal void PrintAllCategories(){
+        internal void PrintAllCategories(ProductCategoryService categoryService)
+        {
             Console.WriteLine ("\nList of Category");
             var productCategories = categoryService.Get ();
-            foreach (var category in productCategories) {
-                Console.WriteLine ($"ID - {category.Id} NAME - {category.Name}");
+            foreach (var productCategory in productCategories) {
+                Console.WriteLine ($"ID - {productCategory.Id} NAME - {productCategory.Name}");
                 category.SubCategories.ForEach (element =>
                     Console.WriteLine ($"     ID - {element.Id} NAME - {element.Name}"));
             }
