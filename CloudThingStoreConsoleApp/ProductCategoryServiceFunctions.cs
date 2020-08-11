@@ -86,8 +86,7 @@ namespace CloudThingStoreConsoleApp {
         {
             Console.WriteLine ("\nList of Category");
             try{
-            var productCategories = categoryService.Get ();
-            foreach (var productCategory in productCategories) {
+            foreach (var productCategory in categoryService.Get ()) {
                 Console.WriteLine ($"ID - {productCategory.Id} NAME - {productCategory.Name}");
                 productCategory.SubCategories.ForEach (element =>
                     Console.WriteLine ($"   SUB    ID - {element.Id} NAME - {element.Name}"));

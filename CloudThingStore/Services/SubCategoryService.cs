@@ -25,14 +25,5 @@ namespace CloudThingStore.Services {
             category.SubCategories.Add (subCategory);
             return subCategory;
         }
-        public List<ProductSubCategory> Get(int categoryId){
-            //check weather the category Id Exist of not
-            var categoty = _Service.Get(categoryId);
-            if(categoty == null)
-                throw new CategoryNotExistException(categoryId);
-            
-            // Now Return the subcategories list
-            return categoty.SubCategories;
-        }
     }
 }   
