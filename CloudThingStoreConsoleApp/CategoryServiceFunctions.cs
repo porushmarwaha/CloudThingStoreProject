@@ -3,7 +3,7 @@ using CloudThingStore.Entities;
 using CloudThingStore.Exceptions;
 using CloudThingStore.Services;
 namespace CloudThingStoreConsoleApp {
-    public class ProductCategoryServiceFunctions {
+    public class CategoryServiceFunctions {
         ProductCategory category;
         int id = 0;
         string name = "";
@@ -63,37 +63,37 @@ namespace CloudThingStoreConsoleApp {
                 Console.WriteLine (ex.Message);
             }
         }
-        internal void AddSubCategory (SubCategoryService subCategoryService) {
-            Console.Write ("\nPlease enter Category Id -");
-            try {
-                id = int.Parse (Console.ReadLine ());
-                Console.Write ("\nPlease type Sub category Name - ");
-                name = Console.ReadLine ();
-            } catch (FormatException e) {
-                Console.WriteLine (e.Message);
-            }
-            try{
-             subCategoryService.Add (id, name);
-            }
-            catch (DuplicateCategoryException e){
-                Console.WriteLine(e.Message);
-            }
-            catch(CategoryNotExistException e){
-                Console.WriteLine(e.Message);
-            }
-        }
-        internal void PrintAllCategories(ProductCategoryService categoryService)
-        {
-            Console.WriteLine ("\nList of Category");
-            try{
-            foreach (var productCategory in categoryService.Get ()) {
-                Console.WriteLine ($"ID - {productCategory.Id} NAME - {productCategory.Name}");
-                productCategory.SubCategories.ForEach (element =>
-                    Console.WriteLine ($"   SUB    ID - {element.Id} NAME - {element.Name}"));
-            }
-            }catch(NullReferenceException e){
-                Console.WriteLine(e.Message);
-            }
-        }
+        // internal void AddSubCategory (SubCategoryService subCategoryService) {
+        //     Console.Write ("\nPlease enter Category Id -");
+        //     try {
+        //         id = int.Parse (Console.ReadLine ());
+        //         Console.Write ("\nPlease type Sub category Name - ");
+        //         name = Console.ReadLine ();
+        //     } catch (FormatException e) {
+        //         Console.WriteLine (e.Message);
+        //     }
+        //     try{
+        //      subCategoryService.Add (id, name);
+        //     }
+        //     catch (DuplicateCategoryException e){
+        //         Console.WriteLine(e.Message);
+        //     }
+        //     catch(CategoryNotExistException e){
+        //         Console.WriteLine(e.Message);
+        //     }
+        // }
+        // internal void PrintAllCategories(ProductCategoryService categoryService)
+        // {
+        //     Console.WriteLine ("\nList of Category");
+        //     try{
+        //     foreach (var productCategory in categoryService.Get ()) {
+        //         Console.WriteLine ($"ID - {productCategory.Id} NAME - {productCategory.Name}");
+        //         productCategory.SubCategories.ForEach (element =>
+        //             Console.WriteLine ($"   SUB    ID - {element.Id} NAME - {element.Name}"));
+        //     }
+        //     }catch(NullReferenceException e){
+        //         Console.WriteLine(e.Message);
+        //     }
+        // }
     }
 }

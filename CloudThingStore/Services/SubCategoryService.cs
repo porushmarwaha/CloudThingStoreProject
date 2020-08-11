@@ -1,29 +1,51 @@
-using System.Collections.Generic;
 using CloudThingStore.Entities;
 using CloudThingStore.Exceptions;
+
 namespace CloudThingStore.Services {
     public class SubCategoryService {
         private int _count = 0;
-        public ProductCategoryService _Service { get; set; }
+        private ProductCategoryService _CategoryService; 
         public SubCategoryService(ProductCategoryService service){
-            this._Service = service;
+            this._CategoryService = service;
         }
         public ProductSubCategory Add (int categoryId, string name ) {
-            //Get Product Category from Product Category Service class 
-            var category = _Service.Get (categoryId);
-
-            //Check if the category is null then throw an excetion
-            if(category == null)
-                throw new CategoryNotExistException(categoryId);
-
-            //Check if the name already existed then throw an exception
-            if(category.SubCategories.Exists(element => element.Name == name))
-                throw new DuplicateCategoryException(name);
             
-            // Add sub product category  
-            var subCategory = new ProductSubCategory { CategoryId = categoryId, Id = ++_count, Name = name.ToLower () };
+            var category = _CategoryService.Get (categoryId);
+           
+            if(category == null)
+                throw new CategoryNotExistException();
+
+            if(category.SubCategories.Exists(element => element.Name == name))
+                throw new DuplicateCategoryException();
+                       
+            var subCategory = new ProductSubCategory { CategoryId = categoryId, Id = ++_count, Name = name };
             category.SubCategories.Add (subCategory);
             return subCategory;
         }
+        public ProductSubCategory Update(int categoryId , string oldName, string newName){
+            var category = _CategoryService.Get(categoryId);
+
+            if(category == null)
+                throw new CategoryNotExistException();
+            
+            if(!category.SubCategories.Exists(element => element.Name == oldName))
+                throw new DuplicateSubCategoryException();
+
+            if(category.SubCategories.Exists(element => element.Name == newName))
+                throw new DuplicateSubCategoryException(); 
+
+            var subCategory = category.SubCategories.Find(element => element.Name == oldName);
+            subCategory.Name = newName;
+            return subCategory;
+        }
+        public bool Delete(int categoryId, string name){
+            var category = _CategoryService.Get(categoryId);
+
+            if (category == null)
+                throw new CategoryNotExistException();
+
+            var subCategoryId = category.SubCategories.Find(element => element.Name == name); 
+            return category.SubCategories.Remove(subCategoryId);
+        }     
     }
 }   
