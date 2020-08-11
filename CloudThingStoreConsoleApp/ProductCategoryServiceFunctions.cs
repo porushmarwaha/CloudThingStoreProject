@@ -72,7 +72,15 @@ namespace CloudThingStoreConsoleApp {
             } catch (FormatException e) {
                 Console.WriteLine (e.Message);
             }
-            subCategoryService.Add (id, name);
+            try{
+             subCategoryService.Add (id, name);
+            }
+            catch (DuplicateCategoryException e){
+                Console.WriteLine(e.Message);
+            }
+            catch(CategoryNotExistException e){
+                Console.WriteLine(e.Message);
+            }
         }
         internal void PrintAllCategories(ProductCategoryService categoryService)
         {
