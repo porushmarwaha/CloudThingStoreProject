@@ -7,10 +7,10 @@ namespace CloudThingStore.Services {
         private readonly List<ProductCategory> _productCategories = new List<ProductCategory> ();
         private int _count = 0;
         public ProductCategory Add (string name) {
-            if (_productCategories.Exists (element => element.Name == name.ToLower ()))
+            if (_productCategories.Exists (element => element.Name == name))
                 throw new DuplicateCategoryException ();
 
-            var category = new ProductCategory { Id = ++_count, Name = name.ToLower () };
+            var category = new ProductCategory { Id = ++_count, Name = name };
             _productCategories.Add (category);
             return category;
         }
@@ -18,7 +18,7 @@ namespace CloudThingStore.Services {
             if (!_productCategories.Exists (element => element.Id == id))
                 throw new CategoryNotExistException ();
 
-            if (_productCategories.Exists (element => element.Name == name.ToLower ()))
+            if (_productCategories.Exists (element => element.Name == name))
                 throw new DuplicateCategoryException ();
 
             var category = _FindObjectById (id);
@@ -27,7 +27,7 @@ namespace CloudThingStore.Services {
         }
         public List<ProductCategory> Get () => _productCategories;
         public ProductCategory Get (int id) => _FindObjectById (id);
-        public ProductCategory Get (string name) => _productCategories.FirstOrDefault (element => element.Name == name.ToLower ());
+        public ProductCategory Get (string name) => _productCategories.FirstOrDefault (element => element.Name == name);
         public bool Delete (int id) => _productCategories.Remove (_FindObjectById (id));
         private ProductCategory _FindObjectById (int id) => _productCategories.FirstOrDefault (element => element.Id == id);
     }

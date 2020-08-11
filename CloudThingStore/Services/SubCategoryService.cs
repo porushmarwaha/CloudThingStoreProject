@@ -4,12 +4,11 @@ using CloudThingStore.Exceptions;
 namespace CloudThingStore.Services {
     public class SubCategoryService {
         private int _count = 0;
-        private ProductCategoryService _CategoryService; 
+        private readonly ProductCategoryService _CategoryService; 
         public SubCategoryService(ProductCategoryService service){
             this._CategoryService = service;
         }
         public ProductSubCategory Add (int categoryId, string name ) {
-            
             var category = _CategoryService.Get (categoryId);
            
             if(category == null)
