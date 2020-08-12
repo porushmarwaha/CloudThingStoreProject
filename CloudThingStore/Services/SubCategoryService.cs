@@ -28,7 +28,7 @@ namespace CloudThingStore.Services {
                 throw new CategoryNotExistException();
             
             if(!category.SubCategories.Exists(element => element.Name == oldName))
-                throw new DuplicateSubCategoryException();
+                throw new CategoryNotExistException();
 
             if(category.SubCategories.Exists(element => element.Name == newName))
                 throw new DuplicateSubCategoryException(); 
