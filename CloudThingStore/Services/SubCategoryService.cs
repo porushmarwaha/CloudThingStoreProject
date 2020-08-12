@@ -6,7 +6,7 @@ namespace CloudThingStore.Services {
         private int _count = 0;
         private readonly ProductCategoryService _CategoryService; 
         public SubCategoryService(ProductCategoryService service){
-            this._CategoryService = service;
+            _CategoryService = service;
         }
         public ProductSubCategory Add (int categoryId, string name ) {
             var category = _CategoryService.Get (categoryId);

@@ -5,9 +5,11 @@ namespace CloudThingStoreConsoleApp {
         static void Main (string[] args) {
             var categoryService = new ProductCategoryService();
             var subCategoryService = new SubCategoryService(categoryService);
+            var productService = new ProductService(categoryService);
             int input = 0;
             var function = new CategoryServiceFunctions ();
             var subFunction = new SubCategoryServiceFunctions();
+            var productFunction = new ProductFunctions();
             while (true) {
                 Console.WriteLine ("\n1. Add a Category \n2. Print List of All Category \n3. Update Category by Id \n4. Search Category by Id or Name \n5. Delete Category by Id \n6. Add Sub Category \n7. Print All Categories and Sub Categories\n8. Update Sub Category\n9. Delete Sub Category\n0. Exit ");
                 Console.Write ("Please Choose your Option - ");
@@ -43,6 +45,10 @@ namespace CloudThingStoreConsoleApp {
                         subFunction.UpdateSubCategory(subCategoryService);
                         break;
                     case 9: subFunction.DeleteSubCategory(subCategoryService);
+                        break;
+                    case 10: productFunction.AddProducts(productService); 
+                        break;
+                    case 11: productFunction.DisplayAllProducts(productService);
                         break;
                     case 0:
                         Environment.Exit (0);
