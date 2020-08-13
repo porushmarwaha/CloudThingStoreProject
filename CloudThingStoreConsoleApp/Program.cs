@@ -3,10 +3,10 @@ using CloudThingStore.Services;
 namespace CloudThingStoreConsoleApp {
     class Program {
         static void Main (string[] args) {
+            int input = 0;
             var categoryService = new ProductCategoryService ();
             var subCategoryService = new SubCategoryService (categoryService);
             var productService = new ProductService (categoryService);
-            int input = 0;
             var function = new CategoryServiceFunctions ();
             var subFunction = new SubCategoryServiceFunctions ();
             var productFunction = new ProductFunctions ();
