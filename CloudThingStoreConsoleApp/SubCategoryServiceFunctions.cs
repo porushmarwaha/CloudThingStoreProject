@@ -69,8 +69,10 @@ namespace CloudThingStoreConsoleApp
                 }catch(FormatException e){
                     System.Console.WriteLine(e.Message);
                 }
+
+                // try Catch Block must be created here 
                 if(subCategoryService.Delete(id,name))  System.Console.WriteLine("Sub Category Deleted Successfully");
-                else System.Console.WriteLine("Sub category Not Existed");
+                else System.Console.WriteLine("Sub category Not Existed"); 
         }       
     }
 }

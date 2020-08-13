@@ -3,15 +3,15 @@ using CloudThingStore.Services;
 namespace CloudThingStoreConsoleApp {
     class Program {
         static void Main (string[] args) {
-            var categoryService = new ProductCategoryService();
-            var subCategoryService = new SubCategoryService(categoryService);
-            var productService = new ProductService(categoryService);
+            var categoryService = new ProductCategoryService ();
+            var subCategoryService = new SubCategoryService (categoryService);
+            var productService = new ProductService (categoryService);
             int input = 0;
             var function = new CategoryServiceFunctions ();
-            var subFunction = new SubCategoryServiceFunctions();
-            var productFunction = new ProductFunctions();
+            var subFunction = new SubCategoryServiceFunctions ();
+            var productFunction = new ProductFunctions ();
             while (true) {
-                Console.WriteLine ("\n1. Add a Category \n2. Print List of All Category \n3. Update Category by Id \n4. Search Category by Id or Name \n5. Delete Category by Id \n6. Add Sub Category \n7. Print All Categories and Sub Categories\n8. Update Sub Category\n9. Delete Sub Category\n0. Exit ");
+                Console.WriteLine ("\n1. Add a Category \n2. Print List of All Category \n3. Update Category by Id \n4. Search Category by Id or Name \n5. Delete Category by Id \n6. Add Sub Category \n7. Print All Categories and Sub Categories\n8. Update Sub Category\n9. Delete Sub Category\n10. Add Product \n11. Print All Products \n12. Update product \n13. Delete Product \n0. Exit ");
                 Console.Write ("Please Choose your Option - ");
                 try {
                     input = int.Parse (Console.ReadLine ());
@@ -41,14 +41,23 @@ namespace CloudThingStoreConsoleApp {
                     case 7:
                         subFunction.PrintAllCategories (categoryService);
                         break;
-                     case 8:
-                        subFunction.UpdateSubCategory(subCategoryService);
+                    case 8:
+                        subFunction.UpdateSubCategory (subCategoryService);
                         break;
-                    case 9: subFunction.DeleteSubCategory(subCategoryService);
+                    case 9:
+                        subFunction.DeleteSubCategory (subCategoryService);
                         break;
-                    case 10: productFunction.AddProducts(productService); 
+                    case 10:
+                        productFunction.AddProducts (productService);
                         break;
-                    case 11: productFunction.DisplayAllProducts(productService);
+                    case 11:
+                        productFunction.DisplayAllProducts (productService);
+                        break;
+                    case 12:
+                        productFunction.ProductUpdate (productService);
+                        break;
+                    case 13:
+                        productFunction.DeleteProduct (productService);
                         break;
                     case 0:
                         Environment.Exit (0);

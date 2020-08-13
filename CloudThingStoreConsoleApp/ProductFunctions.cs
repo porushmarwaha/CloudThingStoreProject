@@ -8,6 +8,7 @@ namespace CloudThingStoreConsoleApp {
         string subCategoryName = "";
         string productName = "";
         float price = 0;
+        int id = 0;
 
         internal void AddProducts(ProductService productService){
             System.Console.Write("\nEnter category Name - ");
@@ -41,6 +42,23 @@ namespace CloudThingStoreConsoleApp {
             }catch(ProductNotExistException e){
                 System.Console.WriteLine(e.Message);
             }
+        }
+        internal void ProductUpdate(ProductService productService){
+            System.Console.Write("Please Enter Product ID - ");
+            id = int.Parse(Console.ReadLine());
+            System.Console.Write("Please Enter New Name - ");
+            productName = Console.ReadLine();
+            System.Console.WriteLine("Please enter new Price - ");
+            price = float.Parse(Console.ReadLine());
+
+            productService.Update(id,productName,price);
+            
+        }
+        internal void DeleteProduct(ProductService productService){
+            System.Console.WriteLine("Please enter Product ID - ");
+            id = int.Parse( Console.ReadLine() );
+            if(productService.Delete(id))
+                System.Console.WriteLine("Deleted Successfully");
         }
     }
 }

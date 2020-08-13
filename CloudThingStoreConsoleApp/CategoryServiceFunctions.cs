@@ -10,10 +10,11 @@ namespace CloudThingStoreConsoleApp {
         internal void Add (ProductCategoryService categoryService) {
             Console.Write ($"\nPlease enter Category - ");
             try {
-                categoryService.Add (Console.ReadLine ());
+                category = categoryService.Add (Console.ReadLine ());
             } catch (DuplicateCategoryException e) {
-                Console.WriteLine (e.Message);
+                Console.WriteLine (e);
             }
+            Console.WriteLine("Category Added Successfully");
         }
         internal void Print (ProductCategoryService categoryService) {
             Console.WriteLine ("\nList of Category");
@@ -35,12 +36,13 @@ namespace CloudThingStoreConsoleApp {
                 Console.WriteLine (e.Message);
             }
             try {
-                categoryService.Update (id, name);
+                category = categoryService.Update (id, name);
             } catch (CategoryNotExistException e) {
                 Console.WriteLine (e.Message);
             } catch (DuplicateCategoryException e) {
                 Console.WriteLine (e.Message);
             }
+            Console.WriteLine("Category Updated Successfully");
         }
         internal void Search (ProductCategoryService categoryService) {
             Console.Write ("\nPlease enter Id or Name- ");
