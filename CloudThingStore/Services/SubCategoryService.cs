@@ -11,7 +11,7 @@ namespace CloudThingStore.Services {
         public ProductSubCategory Add (int categoryId, string name) {
             var category = _CategoryService.Get (categoryId);
 
-            if (category == null)
+            if (null == category)
                 throw new CategoryNotExistException ();
 
             if (category.SubCategories.Exists (element => element.Name == name))
@@ -25,7 +25,7 @@ namespace CloudThingStore.Services {
         public ProductSubCategory Update (int categoryId, string oldName, string newName) {
             var category = _CategoryService.Get (categoryId);
 
-            if (category == null)
+            if (null == category)
                 throw new CategoryNotExistException ();
 
             if (!category.SubCategories.Exists (element => element.Name == oldName))
@@ -42,7 +42,7 @@ namespace CloudThingStore.Services {
         public bool Delete (int categoryId, string name) {
             var category = _CategoryService.Get (categoryId);
 
-            if (category == null)
+            if (null == category)
                 throw new CategoryNotExistException ();
 
             var subCategoryId = category.SubCategories.Find (element => element.Name == name);

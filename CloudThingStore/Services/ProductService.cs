@@ -16,10 +16,10 @@ namespace CloudThingStore.Services {
             int category = -1;
             int subCategory = -1;
 
-            if (_Category (categoryName) != null)
+            if (null !=  _Category (categoryName))
                 category = _Category (categoryName).Id;
 
-            if (_SubCategory (categoryName, subCategoryName) != null)
+            if (null != _SubCategory (categoryName, subCategoryName))
                 subCategory = _SubCategory (categoryName, subCategoryName).Id;
 
             var product = new Product { Id = ++_count, Name = name, Price = price, CategoryId = category, SubCategoryId = subCategory };
@@ -33,7 +33,7 @@ namespace CloudThingStore.Services {
 
             var product = _Products.Find (element => element.Id == id);
 
-            if (product == null)
+            if (null == product)
                 throw new ProductNotExistException ();
 
             product.Name = newName;
@@ -44,7 +44,7 @@ namespace CloudThingStore.Services {
         public bool Delete (int id) {
             var product = _Products.Find (element => element.Id == id);
 
-            if (product == null)
+            if (null == product)
                 throw new ProductNotExistException ();
 
             return _Products.Remove (product);
@@ -80,7 +80,7 @@ namespace CloudThingStore.Services {
         }
         private ProductCategory _Category (string categoryName) => _CategoryService.Get (categoryName);
         private ProductSubCategory _SubCategory (string categoryName, string subCategoryName) {
-            if (_Category (categoryName) != null)
+            if (null != _Category (categoryName))
                 return _Category (categoryName).SubCategories.Find (element => element.Name == subCategoryName);
             return null;
         }

@@ -23,7 +23,7 @@ namespace CloudThingStoreConsoleApp {
            
             var categoryList = categoryService.Get ();
            
-            if (categoryList.Count == 0) {
+            if (0 == categoryList.Count) {
                 Console.WriteLine ("List is Empty");
                 return;
             }

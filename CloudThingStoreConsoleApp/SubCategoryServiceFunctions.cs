@@ -77,7 +77,8 @@ namespace CloudThingStoreConsoleApp {
             }
 
             // try Catch Block must be created here 
-            if (subCategoryService.Delete (id, name)) System.Console.WriteLine ("Sub Category Deleted Successfully");
+            if (subCategoryService.Delete (id, name)) 
+                System.Console.WriteLine ("Sub Category Deleted Successfully");
             else System.Console.WriteLine ("Sub category Not Existed");
         }
     }

@@ -30,7 +30,7 @@ namespace CloudThingStoreConsoleApp {
         internal void DisplayAllProducts (ProductService productService) {
             var products = productService.Get ();
 
-            if (products.Count == 0) {
+            if (0 == products.Count) {
                 System.Console.WriteLine ("Product List is Empty");
                 return;
             }
@@ -42,10 +42,10 @@ namespace CloudThingStoreConsoleApp {
                 System.Console.WriteLine ($"  Product         - {product.Name}");
                 System.Console.WriteLine ($"  Price           - {product.Price}");
 
-                if (product.CategoryId > 0)
+                if (0 < product.CategoryId)
                     System.Console.WriteLine ($"  Category ID     - {product.CategoryId}");
 
-                if (product.SubCategoryId > 0)
+                if (0 < product.SubCategoryId)
                     System.Console.WriteLine ($"  Sub Category ID - {product.SubCategoryId}");
                 System.Console.WriteLine ("");
             }

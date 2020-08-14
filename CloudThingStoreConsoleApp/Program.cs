@@ -4,22 +4,27 @@ namespace CloudThingStoreConsoleApp {
     class Program {
         static void Main (string[] args) {
             int input = 0;
+ 
             var categoryService = new ProductCategoryService ();
             var subCategoryService = new SubCategoryService (categoryService);
             var productService = new ProductService (categoryService);
+ 
             var function = new CategoryServiceFunctions ();
             var subFunction = new SubCategoryServiceFunctions ();
             var productFunction = new ProductFunctions ();
+ 
             while (true) {
                 Console.WriteLine ("\n1. Add a Category \n2. Print List of All Category \n3. Update Category by Id \n4. Search Category by Id or Name \n5. Delete Category by Id \n6. Add Sub Category \n7. Print All Categories and Sub Categories\n8. Update Sub Category\n9. Delete Sub Category\n10. Add Product \n11. Print All Products \n12. Update product \n13. Delete Product \n14. Write Product Details in File \n0. Exit ");
                 
                 Console.Write ("Please Choose your Option - ");
+ 
                 try {
                     input = int.Parse (Console.ReadLine ());
                 } catch (Exception) {
                     Console.WriteLine ("Please give valid integer Input");
                     continue;
                 }
+ 
                 switch (input) {
                     case 1:
                         function.Add (categoryService);
