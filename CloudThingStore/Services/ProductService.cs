@@ -16,10 +16,10 @@ namespace CloudThingStore.Services {
             int category = -1;
             int subCategory = -1;
 
-            if (null !=  _Category (categoryName))
+            if (_Category (categoryName) != null)
                 category = _Category (categoryName).Id;
 
-            if (null != _SubCategory (categoryName, subCategoryName))
+            if (_SubCategory (categoryName, subCategoryName) != null)
                 subCategory = _SubCategory (categoryName, subCategoryName).Id;
 
             var product = new Product { Id = ++_count, Name = name, Price = price, CategoryId = category, SubCategoryId = subCategory };
@@ -33,7 +33,7 @@ namespace CloudThingStore.Services {
 
             var product = _Products.Find (element => element.Id == id);
 
-            if (null == product)
+            if (product == null)
                 throw new ProductNotExistException ();
 
             product.Name = newName;
@@ -44,14 +44,13 @@ namespace CloudThingStore.Services {
         public bool Delete (int id) {
             var product = _Products.Find (element => element.Id == id);
 
-            if (null == product)
+            if (product == null)
                 throw new ProductNotExistException ();
 
             return _Products.Remove (product);
         }
-        public void WriteToFile(){
+        public void WriteToFile(string path){
 
-            string path  = @"C:\Users\RahulMarwaha\Desktop\CloudThingProducts\products.txt";
             
             if (File.Exists(path))
                 File.Delete(path);
@@ -80,7 +79,7 @@ namespace CloudThingStore.Services {
         }
         private ProductCategory _Category (string categoryName) => _CategoryService.Get (categoryName);
         private ProductSubCategory _SubCategory (string categoryName, string subCategoryName) {
-            if (null != _Category (categoryName))
+            if (_Category (categoryName) != null)
                 return _Category (categoryName).SubCategories.Find (element => element.Name == subCategoryName);
             return null;
         }

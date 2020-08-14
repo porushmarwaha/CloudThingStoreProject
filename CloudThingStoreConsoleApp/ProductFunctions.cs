@@ -30,7 +30,7 @@ namespace CloudThingStoreConsoleApp {
         internal void DisplayAllProducts (ProductService productService) {
             var products = productService.Get ();
 
-            if (0 == products.Count) {
+            if (products.Count == 0) {
                 System.Console.WriteLine ("Product List is Empty");
                 return;
             }
@@ -42,10 +42,10 @@ namespace CloudThingStoreConsoleApp {
                 System.Console.WriteLine ($"  Product         - {product.Name}");
                 System.Console.WriteLine ($"  Price           - {product.Price}");
 
-                if (0 < product.CategoryId)
+                if (product.CategoryId > 0)
                     System.Console.WriteLine ($"  Category ID     - {product.CategoryId}");
 
-                if (0 < product.SubCategoryId)
+                if (product.SubCategoryId > 0)
                     System.Console.WriteLine ($"  Sub Category ID - {product.SubCategoryId}");
                 System.Console.WriteLine ("");
             }
@@ -87,7 +87,8 @@ namespace CloudThingStoreConsoleApp {
             else System.Console.WriteLine ("Prodcut Id does not Exist.");
         }
         internal void ProductInventoryInFile(ProductService productService){
-            productService.WriteToFile();
+            string url = @"C:\Users\RahulMarwaha\Desktop\CloudThingProducts\products.txt";
+            productService.WriteToFile(url);
             Console.WriteLine(@"File is Prepared please go following path - C:\Users\RahulMarwaha\Desktop\CloudThingProducts\products.txt");
         }
     }
