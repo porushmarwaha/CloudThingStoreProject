@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CloudThingStore": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "PATH": "C:\\Users\\RahulMarwaha\\Desktop\\CloudThingProducts\\products.txt"
+      }
+    }
+  }
+}

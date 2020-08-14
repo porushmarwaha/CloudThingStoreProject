@@ -12,6 +12,7 @@ namespace CloudThingStore.Services {
 
             var category = new ProductCategory { Id = ++_count, Name = name };
             _productCategories.Add (category);
+            
             return category;
         }
         public ProductCategory Update (int id, string name) {
@@ -23,6 +24,7 @@ namespace CloudThingStore.Services {
 
             var category = _FindObjectById (id);
             category.Name = name.ToLower ();
+            
             return category;
         }
         public List<ProductCategory> Get () => _productCategories;

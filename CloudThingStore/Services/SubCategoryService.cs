@@ -19,6 +19,7 @@ namespace CloudThingStore.Services {
 
             var subCategory = new ProductSubCategory { CategoryId = categoryId, Id = ++_count, Name = name };
             category.SubCategories.Add (subCategory);
+ 
             return subCategory;
         }
         public ProductSubCategory Update (int categoryId, string oldName, string newName) {
@@ -35,6 +36,7 @@ namespace CloudThingStore.Services {
 
             var subCategory = category.SubCategories.Find (element => element.Name == oldName);
             subCategory.Name = newName;
+ 
             return subCategory;
         }
         public bool Delete (int categoryId, string name) {
@@ -44,6 +46,7 @@ namespace CloudThingStore.Services {
                 throw new CategoryNotExistException ();
 
             var subCategoryId = category.SubCategories.Find (element => element.Name == name);
+ 
             return category.SubCategories.Remove (subCategoryId);
         }
     }

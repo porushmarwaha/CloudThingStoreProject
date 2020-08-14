@@ -5,6 +5,5 @@ namespace CloudThingStore.Entities {
         public string Name { get; set; }
         public int CategoryId { get; set; }
         public List<Product> Products { get; set; }
-
     }
 }
