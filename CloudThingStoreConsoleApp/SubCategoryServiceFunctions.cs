@@ -1,12 +1,12 @@
 using System;
-using CloudThingStore.Exceptions;
-using CloudThingStore.Services;
+using CloudThingStore.Services.Exceptions;
+using CloudThingStore.Services.Service;
 
 namespace CloudThingStoreConsoleApp {
     public class SubCategoryServiceFunctions {
         int id = 0;
         string name = "";
-        internal void AddSubCategory (SubCategoryService subCategoryService) {
+        internal void AddSubCategory (ProductSubCategoryService subCategoryService) {
             Console.Write ("\nPlease enter Category Id -");
 
             try {
@@ -42,7 +42,7 @@ namespace CloudThingStoreConsoleApp {
                 Console.WriteLine (e.Message);
             }
         }
-        internal void UpdateSubCategory (SubCategoryService subCategoryService) {
+        internal void UpdateSubCategory (ProductSubCategoryService subCategoryService) {
             string newName = "";
             
             Console.Write ("\n Category ID - ");
@@ -65,7 +65,7 @@ namespace CloudThingStoreConsoleApp {
                 Console.WriteLine (e.Message);
             }
         }
-        internal void DeleteSubCategory (SubCategoryService subCategoryService) {
+        internal void DeleteSubCategory (ProductSubCategoryService subCategoryService) {
             Console.Write ("\n   Category ID - ");
             
             try {

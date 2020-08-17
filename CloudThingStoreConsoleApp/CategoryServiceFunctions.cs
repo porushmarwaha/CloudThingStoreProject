@@ -1,8 +1,9 @@
+using CloudThingStore.Services.Entities;
+using CloudThingStore.Services.Exceptions;
+using CloudThingStore.Services.Service;
 using System;
-using CloudThingStore.Entities;
-using CloudThingStore.Exceptions;
-using CloudThingStore.Services;
-namespace CloudThingStoreConsoleApp {
+namespace CloudThingStoreConsoleApp
+{
     public class CategoryServiceFunctions {
         ProductCategory category;
         int id = 0;

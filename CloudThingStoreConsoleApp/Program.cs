@@ -1,12 +1,13 @@
-﻿using System;
-using CloudThingStore.Services;
+﻿
+using CloudThingStore.Services.Service;
+using System;
 namespace CloudThingStoreConsoleApp {
     class Program {
         static void Main (string[] args) {
             int input = 0;
  
             var categoryService = new ProductCategoryService ();
-            var subCategoryService = new SubCategoryService (categoryService);
+            var subCategoryService = new ProductSubCategoryService (categoryService);
             var productService = new ProductService (categoryService);
  
             var function = new CategoryServiceFunctions ();

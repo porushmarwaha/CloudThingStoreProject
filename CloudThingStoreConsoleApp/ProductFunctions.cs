@@ -1,6 +1,7 @@
+using CloudThingStore.Services.Exceptions;
+using CloudThingStore.Services.Service;
 using System;
-using CloudThingStore.Exceptions;
-using CloudThingStore.Services;
+
 namespace CloudThingStoreConsoleApp {
     public class ProductFunctions {
 
