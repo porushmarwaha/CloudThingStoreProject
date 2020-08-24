@@ -121,7 +121,7 @@ namespace CloudThingStoreServices.Test
         //Delete Method
 
         [Test]
-        public void ReturnDeleteMethodWithCorrectId()
+        public void ReturnDeleteMethodWithCorrectCategoryId()
         {
             var category = new ProductCategoryService();
             var subCategory = new ProductSubCategoryService(category);

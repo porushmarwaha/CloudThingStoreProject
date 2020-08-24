@@ -86,6 +86,7 @@ namespace CloudThingStoreConsoleApp {
             } 
             if (check) 
                 System.Console.WriteLine ("Sub Category Deleted Successfully");
+            else Console.WriteLine("Sub Category Not Existed");
 
         }
     }
