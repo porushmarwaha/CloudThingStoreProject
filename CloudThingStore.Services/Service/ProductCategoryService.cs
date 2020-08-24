@@ -28,7 +28,7 @@ namespace CloudThingStore.Services.Service
                 throw new DuplicateCategoryException();
 
             var category = _FindObjectById(id);
-            category.Name = name.ToLower();
+            category.Name = name;
 
             return category;
         }

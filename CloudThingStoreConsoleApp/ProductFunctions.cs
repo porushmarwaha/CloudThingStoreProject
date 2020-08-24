@@ -87,9 +87,10 @@ namespace CloudThingStoreConsoleApp {
                 System.Console.WriteLine ("Deleted Successfully");
             else System.Console.WriteLine ("Prodcut Id does not Exist.");
         }
-        internal void ProductInventoryInFile(ProductService productService){
-            string url = @"C:\Users\RahulMarwaha\Desktop\CloudThingProducts\products.txt";
-            productService.WriteToFile(url);
+        internal void ProductInventoryInFile(ProductService productService)
+        {
+            
+            //productService.WriteToFile(            );
             Console.WriteLine(@"File is Prepared please go following path - C:\Users\RahulMarwaha\Desktop\CloudThingProducts\products.txt");
         }
     }

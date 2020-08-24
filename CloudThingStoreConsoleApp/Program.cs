@@ -1,81 +1,108 @@
-﻿
-using CloudThingStore.Services.Service;
+﻿using CloudThingStore.Services.Service;
 using System;
+
 namespace CloudThingStoreConsoleApp {
-    class Program {
-        static void Main (string[] args) {
+    class Program
+    {
+        static void Main(string[] args)
+        {
             int input = 0;
- 
-            var categoryService = new ProductCategoryService ();
-            var subCategoryService = new ProductSubCategoryService (categoryService);
-            var productService = new ProductService (categoryService);
- 
-            var function = new CategoryServiceFunctions ();
-            var subFunction = new SubCategoryServiceFunctions ();
-            var productFunction = new ProductFunctions ();
- 
-            while (true) {
-                Console.WriteLine ("\n1. Add a Category \n2. Print List of All Category \n3. Update Category by Id \n4. Search Category by Id or Name \n5. Delete Category by Id \n6. Add Sub Category \n7. Print All Categories and Sub Categories\n8. Update Sub Category\n9. Delete Sub Category\n10. Add Product \n11. Print All Products \n12. Update product \n13. Delete Product \n14. Write Product Details in File \n0. Exit ");
-                
-                Console.Write ("Please Choose your Option - ");
- 
-                try {
-                    input = int.Parse (Console.ReadLine ());
-                } catch (Exception) {
-                    Console.WriteLine ("Please give valid integer Input");
+
+            var categoryService = new ProductCategoryService();
+            var subCategoryService = new ProductSubCategoryService(categoryService);
+            var productService = new ProductService(categoryService);
+
+            var function = new CategoryServiceFunctions();
+            var subFunction = new SubCategoryServiceFunctions();
+            var productFunction = new ProductFunctions();
+            //try
+            //{
+
+            //    IConfigurationBuilder builder = new ConfigurationBuilder()
+            //        .SetBasePath(Directory.GetCurrentDirectory())
+            //        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+            //    IConfigurationRoot configuration = builder.Build();
+            //    // configurationSection.Key => FilePath
+            //    // configurationSection.Value => C:\\temp\\logs\\output.txt
+            //    IConfigurationSection configurationSection = configuration.GetSection("AppConfig").GetSection("FilePath");
+            //   Console.WriteLine( configurationSection.Value);
+
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e);
+            //}
+
+            while (true)
+            {
+                Console.WriteLine("\n1. Add a Category \n2. Print List of All Category \n3. Update Category by Id \n4. Search Category by Id or Name \n5. Delete Category by Id \n6. Add Sub Category \n7. Print All Categories and Sub Categories\n8. Update Sub Category\n9. Delete Sub Category\n10. Add Product \n11. Print All Products \n12. Update product \n13. Delete Product \n14. Write Product Details in File \n0. Exit ");
+
+                Console.Write("Please Choose your Option - ");
+
+                try
+                {
+                    input = int.Parse(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Please give valid integer Input");
                     continue;
                 }
- 
-                switch (input) {
+
+                switch (input)
+                {
                     case 1:
-                        function.Add (categoryService);
+                        function.Add(categoryService);
                         break;
                     case 2:
-                        function.Print (categoryService);
+                        function.Print(categoryService);
                         break;
                     case 3:
-                        function.Update (categoryService);
+                        function.Update(categoryService);
                         break;
                     case 4:
-                        function.Search (categoryService);
+                        function.Search(categoryService);
                         break;
                     case 5:
-                        function.Delete (categoryService);
+                        function.Delete(categoryService);
                         break;
                     case 6:
-                        subFunction.AddSubCategory (subCategoryService);
+                        subFunction.AddSubCategory(subCategoryService);
                         break;
                     case 7:
-                        subFunction.PrintAllCategories (categoryService);
+                        subFunction.PrintAllCategories(categoryService);
                         break;
                     case 8:
-                        subFunction.UpdateSubCategory (subCategoryService);
+                        subFunction.UpdateSubCategory(subCategoryService);
                         break;
                     case 9:
-                        subFunction.DeleteSubCategory (subCategoryService);
+                        subFunction.DeleteSubCategory(subCategoryService);
                         break;
                     case 10:
-                        productFunction.AddProducts (productService);
+                        productFunction.AddProducts(productService);
                         break;
                     case 11:
-                        productFunction.DisplayAllProducts (productService);
+                        productFunction.DisplayAllProducts(productService);
                         break;
                     case 12:
-                        productFunction.ProductUpdate (productService);
+                        productFunction.ProductUpdate(productService);
                         break;
                     case 13:
-                        productFunction.DeleteProduct (productService);
+                        productFunction.DeleteProduct(productService);
                         break;
-                    case 14: productFunction.ProductInventoryInFile(productService);
+                    case 14:
+                        productFunction.ProductInventoryInFile(productService);
                         break;
                     case 0:
-                        Environment.Exit (0);
+                        Environment.Exit(0);
                         break;
                     default:
-                        Console.WriteLine ("Input not match from given List Options");
+                        Console.WriteLine("Input not match from given List Options");
                         break;
                 }
             }
+
         }
     }
 }

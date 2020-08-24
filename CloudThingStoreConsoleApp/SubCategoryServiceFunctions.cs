@@ -66,6 +66,7 @@ namespace CloudThingStoreConsoleApp {
             }
         }
         internal void DeleteSubCategory (ProductSubCategoryService subCategoryService) {
+            bool check = false;
             Console.Write ("\n   Category ID - ");
             
             try {
@@ -76,10 +77,16 @@ namespace CloudThingStoreConsoleApp {
                 System.Console.WriteLine (e.Message);
             }
 
-            // try Catch Block must be created here 
-            if (subCategoryService.Delete (id, name)) 
+            try
+            {
+                check = subCategoryService.Delete(id, name);
+            }catch(CategoryNotExistException e)
+            {
+                Console.WriteLine(e.Message);
+            } 
+            if (check) 
                 System.Console.WriteLine ("Sub Category Deleted Successfully");
-            else System.Console.WriteLine ("Sub category Not Existed");
+
         }
     }
 }

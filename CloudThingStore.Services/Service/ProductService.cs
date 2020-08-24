@@ -52,9 +52,6 @@ namespace CloudThingStore.Services.Service
         {
             var product = _Products.Find(element => element.Id == id);
 
-            if (null == product)
-                throw new ProductNotExistException();
-
             return _Products.Remove(product);
         }
         public void WriteToFile(string path)
