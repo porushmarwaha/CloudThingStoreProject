@@ -1,21 +1,34 @@
-﻿
-using CloudThingStore.Services.Entities;
+﻿using CloudThingStore.Services.Entities;
 using CloudThingStore.Services.Exceptions;
 using CloudThingStore.Services.Service;
+using CloudThingStoreServices.Test.Categories;
 using NUnit.Framework;
 
 namespace CloudThingStoreServices.Test
 {
-    [Category ("Product Service")]
+    [Product]
     class ProductServiceClassShould
     {
+        private ProductCategoryService _category;
+        private ProductService _product;
+        private ProductSubCategoryService _subCategory;
+
+
+        [SetUp]
+        public void SetUp()
+        {
+            _category = new ProductCategoryService();
+            _product = new ProductService(_category);
+            _subCategory = new ProductSubCategoryService(_category);
+        }
+     
+        
+        // Add Method
+        
         [Test]
         public void ReturnAddMethodWithProductCorrectValuesAndOnlyProductDetails()
         {
-            var category = new ProductCategoryService();
-            var product = new ProductService(category);
-
-            var actual = product.Add("Food" ,"Fruits" , "Mango" ,80);
+            var actual = _product.Add("Food" ,"Fruits" , "Mango" ,80);
 
             Assert.That(actual, Has.Property("CategoryId")
                                         .EqualTo(-1)
@@ -36,12 +49,9 @@ namespace CloudThingStoreServices.Test
         [Test]
         public void ReturnAddMethodWithProductCorrectValuesAndProductWithCategoryDetails()
         {
-            var category = new ProductCategoryService();
-            var product = new ProductService(category);
+            _category.Add("Food");
 
-            category.Add("Food");
-
-            var actual = product.Add("Food", "Fruits", "Mango", 80);
+            var actual = _product.Add("Food", "Fruits", "Mango", 80);
 
             Assert.That(actual, Has.Property("CategoryId")
                                         .EqualTo(1)
@@ -62,17 +72,12 @@ namespace CloudThingStoreServices.Test
         }
         [Test]
         public void ReturnAddMethodWithProductCorrectValuesAndProductWithCategoryAndSubcategoryDetails()
-        {
-            var category = new ProductCategoryService();
-            var product = new ProductService(category);
+        {    
+            _category.Add("Food");
 
-            var subCategory = new ProductSubCategoryService(category);
-            
-            category.Add("Food");
+            _subCategory.Add(1, "Fruits");
 
-            subCategory.Add(1, "Fruits");
-
-            var actual = product.Add("Food", "Fruits", "Mango", 80);
+            var actual = _product.Add("Food", "Fruits", "Mango", 80);
 
             Assert.That(actual, Has.Property("CategoryId")
                                         .EqualTo(1)
@@ -91,22 +96,19 @@ namespace CloudThingStoreServices.Test
                         );
         }
 
+        
         // Update
+        
         [Test]
         public void ReturnUpdateProductObjectWithProductCorrectValues()
         {
-            var category = new ProductCategoryService();
-            var product = new ProductService(category);
+            _category.Add("Food");
 
-            var subCategory = new ProductSubCategoryService(category);
+            _subCategory.Add(1, "Fruits");
 
-            category.Add("Food");
+            _product.Add("Food", "Fruits", "Mango", 80);
 
-            subCategory.Add(1, "Fruits");
-
-            product.Add("Food", "Fruits", "Mango", 80);
-
-            var actual = product.Update(1, "Apple", 110);
+            var actual = _product.Update(1, "Apple", 110);
 
             Assert.That(actual , Has.Property("CategoryId")
                                         .EqualTo(1)
@@ -127,67 +129,52 @@ namespace CloudThingStoreServices.Test
         [Test]
         public void ReturnUpdatePWithProductInCorrectUpdateValues()
         {
-            var category = new ProductCategoryService();
-            var product = new ProductService(category);
+            _category.Add("Food");
 
-            var subCategory = new ProductSubCategoryService(category);
+            _subCategory.Add(1, "Fruits");
 
-            category.Add("Food");
+            _product.Add("Food", "Fruits", "Mango", 80);
 
-            subCategory.Add(1, "Fruits");
-
-            product.Add("Food", "Fruits", "Mango", 80);
-
-            Assert.That(() => product.Update(5, "Apple", 110), Throws.TypeOf<ProductNotExistException>());
+            Assert.That(() => _product.Update(5, "Apple", 110), Throws.TypeOf<ProductNotExistException>());
         }
 
+        
         //Delete Method
 
         [Test]
         public void ReturnDeleteMethodWithCorrectValues()
         {
-            var category = new ProductCategoryService();
-            var product = new ProductService(category);
+            _category.Add("Food");
 
-            var subCategory = new ProductSubCategoryService(category);
+            _subCategory.Add(1, "Fruits");
 
-            category.Add("Food");
+            _product.Add("Food", "Fruits", "Mango", 80);
 
-            subCategory.Add(1, "Fruits");
-
-            product.Add("Food", "Fruits", "Mango", 80);
-
-            Assert.That(() => product.Delete(1) , Is.True);
+            Assert.That(() => _product.Delete(1) , Is.True);
         }
         [Test]
         public void ReturnDeleteMethodWithInCorrectValues()
         {
-            var category = new ProductCategoryService();
-            var product = new ProductService(category);
+            _category.Add("Food");
 
-            var subCategory = new ProductSubCategoryService(category);
+            _subCategory.Add(1, "Fruits");
 
-            category.Add("Food");
+            _product.Add("Food", "Fruits", "Mango", 80);
 
-            subCategory.Add(1, "Fruits");
-
-            product.Add("Food", "Fruits", "Mango", 80);
-
-            Assert.That(() => product.Delete(10), Is.False);
+            Assert.That(() => _product.Delete(10), Is.False);
         }
 
+        
         //Get Method
+        
         [Test]
         public void ReturnOfGetMethodWithValues()
         {
-            var category = new ProductCategoryService();
-            var product = new ProductService(category);
+            _product.Add("Food", "Fruits", "Mango", 80);
+            _product.Add("Food", "Fruits", "Apple", 90); 
+            _product.Add("Food", "Fruits", "Guava", 100);
 
-            product.Add("Food", "Fruits", "Mango", 80);
-            product.Add("Food", "Fruits", "Apple", 90); 
-            product.Add("Food", "Fruits", "Guava", 100);
-
-            var actual = product.Get();
+            var actual = _product.Get();
 
             Assert.That(actual, Has.Exactly(3).Items);
 
@@ -203,10 +190,7 @@ namespace CloudThingStoreServices.Test
         [Test]
         public void ReturnOfGetMethodWithNull()
         {
-            var category = new ProductCategoryService();
-            var product = new ProductService(category);
-
-            var actual = product.Get();
+            var actual = _product.Get();
 
             Assert.That(actual, Is.Empty);
         }

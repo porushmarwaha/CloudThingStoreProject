@@ -1,40 +1,51 @@
 ﻿using CloudThingStore.Services.Entities;
 using CloudThingStore.Services.Exceptions;
 using CloudThingStore.Services.Service;
+using CloudThingStoreServices.Test.Categories;
 using NUnit.Framework;
 
 namespace CloudThingStoreServices.Test
 {
-    [Category("Product Category Service")]
+    [ProductCategory]
     class ProductCategoyServiceClassShould
     {
+        private ProductCategoryService _categories;
+        private ProductCategoryService _category;
+
+       
+        //Setup Code
         
+        [SetUp]
+        public void Setup()
+        {
+            _categories = new ProductCategoryService();
+            _category = new ProductCategoryService();
+        }
+        
+
         // Add Method
+        
         [Test]
         public void ReturnProductCaegoryObjectByAddMethod()
         {
-            var categories = new ProductCategoryService();
-            var actual =  categories.Add("Computers");
+            var actual =  _categories.Add("Computers");
 
             Assert.That(actual, Has.Property("Name").EqualTo("Computers"));
         }
         [Test]
         public void ReturnOfEmptyStringInAddMethod()
         {
-            var categories = new ProductCategoryService();
-            var actual = categories.Add("");
+            var actual = _categories.Add("");
 
             Assert.That(actual, Has.Property("Name").Contains(string.Empty));
         }
         [Test]
         public void NotAllowDuplicateCategoryInAddMethod()
         {
-            var category = new ProductCategoryService();
-            category.Add("Computers");
+            _category.Add("Computers");
 
-            Assert.That(() => category.Add("Computers") , Throws.TypeOf<DuplicateCategoryException>());
+            Assert.That(() => _category.Add("Computers") , Throws.TypeOf<DuplicateCategoryException>());
         }
-
 
 
         // Update Methods
@@ -42,11 +53,10 @@ namespace CloudThingStoreServices.Test
         [Test]
         public void CheckUpdateMethodWithCorrectValues()
         {
-            var category = new ProductCategoryService();
-            category.Add("Computers");
-            category.Add("Laptops");
+            _category.Add("Computers");
+            _category.Add("Laptops");
 
-            var actual = category.Update(1, "Electronics");
+            var actual = _category.Update(1, "Electronics");
 
             Assert.That(actual, Has.Property("Id")
                                         .EqualTo(1)
@@ -54,7 +64,7 @@ namespace CloudThingStoreServices.Test
                                         .Property("Name")
                                         .EqualTo("Electronics")
                                 );
-            actual = category.Update(2, "Food");
+            actual = _category.Update(2, "Food");
 
             Assert.That(actual, Has.Property("Id")
                                         .EqualTo(2)
@@ -66,41 +76,33 @@ namespace CloudThingStoreServices.Test
         [Test]
         public void NotAllowDuplicateCategoryInUpdateMethod()
         {
-            var category = new ProductCategoryService();
-            category.Add("Computers");
+           
+            _category.Add("Computers");
 
-            Assert.That(() => category.Update(1,"Computers") , Throws.TypeOf<DuplicateCategoryException>());
+            Assert.That(() => _category.Update(1,"Computers") , Throws.TypeOf<DuplicateCategoryException>());
         }
         [Test]
         public void CheckWhenCategoryIdDoesNotExist()
         {
-            var category = new ProductCategoryService();
-            category.Add("Computers");
+            _category.Add("Computers");
 
-            Assert.That(() => category.Update(10, "Computers"), Throws.TypeOf<CategoryNotExistException>());
+            Assert.That(() => _category.Update(10, "Computers"), Throws.TypeOf<CategoryNotExistException>());
         }
         [Test]
-        public void CheckWhenCategoryIdDoesNotExistAndListIsNull()
-        {
-            var category = new ProductCategoryService();
-
-            Assert.That(() => category.Update(1, "Computers"), Throws.TypeOf<CategoryNotExistException>());
-        }
-
+        public void CheckWhenCategoryIdDoesNotExistAndListIsNull() => 
+            Assert.That(() => _category.Update(1, "Computers"), Throws.TypeOf<CategoryNotExistException>());
 
 
         // Get Method
         
         [Test]
         public void ReturnEntireProductCaegoryList()
-        {
-            var category = new ProductCategoryService();
-            
-            category.Add("Computers");
-            category.Add("Laptops");
-            category.Add("Food");
+        {   
+            _category.Add("Computers");
+            _category.Add("Laptops");
+            _category.Add("Food");
 
-            var actual = category.Get();
+            var actual = _category.Get();
 
             Assert.That(actual, Has.Exactly(3).Items);
 
@@ -113,13 +115,11 @@ namespace CloudThingStoreServices.Test
         [Test]
         public void ReturnProductCategoryObjectById()
         {
-            var category = new ProductCategoryService();
+            _category.Add("Computers");
+            _category.Add("Laptops");
+            _category.Add("Food");
 
-            category.Add("Computers");
-            category.Add("Laptops");
-            category.Add("Food");
-
-            var actual = category.Get(2);
+            var actual = _category.Get(2);
 
             Assert.That(actual, Has.Property("Id")
                                         .EqualTo(2)
@@ -131,13 +131,12 @@ namespace CloudThingStoreServices.Test
         [Test]
         public void ReturnProductCategoryObjectByName()
         {
-            var category = new ProductCategoryService();
+        
+            _category.Add("Computers");
+            _category.Add("Laptops");
+            _category.Add("Food");
 
-            category.Add("Computers");
-            category.Add("Laptops");
-            category.Add("Food");
-
-            var actual = category.Get("Laptops");
+            var actual = _category.Get("Laptops");
 
             Assert.That(actual, Has.Property("Name")
                                         .EqualTo("Laptops")
@@ -152,50 +151,43 @@ namespace CloudThingStoreServices.Test
         public void ReturnListFromGetMethod()
         {
             
-            var categories = new ProductCategoryService();
-            var actual = categories.Get();
+            var actual = _categories.Get();
 
             Assert.That(actual, Is.Empty);
         }
         [Test]
         public void ReturnWhenNotExistingIdIsProvidedToGetMethod()
         {
-            var category = new ProductCategoryService();
-            var actual = category.Get(1);
+            var actual = _category.Get(1);
 
             Assert.That(actual, Is.EqualTo(null));
         }
         [Test]
         public void ReturnWhenNotExistingNameIsProvidedToGetMethod()
         {
-            var category = new ProductCategoryService();
-            var actual = category.Get("Computers");
+            var actual = _category.Get("Computers");
 
             Assert.That(actual, Is.EqualTo(null));
         }
 
-
-
-
+        
         // Delete Method
+        
         [Test]
         public void ReturnBoolValueOfDeleteMethodWhenIdExisted()
         {
-            var category = new ProductCategoryService();
-            category.Add("Computers");
-            category.Add("Laptops");
-            category.Add("Food");
+            _category.Add("Computers");
+            _category.Add("Laptops");
+            _category.Add("Food");
 
-            var actual = category.Delete(1);
+            var actual = _category.Delete(1);
 
             Assert.That(actual, Is.EqualTo(true));
         }
-
         [Test]
         public void ReturnOfDeleteMethodWhenWrongIdIsProvided()
         {
-            var category = new ProductCategoryService();
-            var actual = category.Delete(1);
+            var actual = _category.Delete(1);
 
             Assert.That(actual, Is.EqualTo(false));
         }
