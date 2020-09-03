@@ -2,7 +2,7 @@
 
 namespace CloudThingStore.Services.Entities
 {
-    public class ProductSubCategory
+    public class ProductSubCategory : IProductSubCategory
     {
         public int Id { get; set; }
         public string Name { get; set; }

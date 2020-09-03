@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace CloudThingStore.Services.Service
 {
-    public class ProductCategoryService
+    public class ProductCategoryService : IProductCategoryService
     {
         private readonly List<ProductCategory> _productCategories = new List<ProductCategory>();
         private int _count = 0;

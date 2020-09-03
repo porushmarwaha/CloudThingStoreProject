@@ -3,11 +3,11 @@ using CloudThingStore.Services.Exceptions;
 
 namespace CloudThingStore.Services.Service
 {
-    public class ProductSubCategoryService
+    public class ProductSubCategoryService : IProductSubCategoryService
     {
         private int _count = 0;
-        private readonly ProductCategoryService _CategoryService;
-        public ProductSubCategoryService(ProductCategoryService service)
+        private readonly IProductCategoryService _CategoryService;
+        public ProductSubCategoryService(IProductCategoryService service)
         {
             _CategoryService = service;
         }
@@ -44,6 +44,7 @@ namespace CloudThingStore.Services.Service
 
             return subCategory;
         }
+
         public bool Delete(int categoryId, string name)
         {
             var category = _CategoryService.Get(categoryId);

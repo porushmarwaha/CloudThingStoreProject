@@ -1,11 +1,13 @@
 using CloudThingStore.Services.Exceptions;
 using CloudThingStore.Services.Service;
+using CloudThingStoreConsoleApp.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 
 namespace CloudThingStoreConsoleApp {
     public class ProductFunctions {
 
-        internal void AddProducts (ProductService productService) {
+        internal void AddProducts (IProductService productService , ILogger log) {
             decimal price = 0;
 
             System.Console.Write ("\nEnter category Name - ");
@@ -28,7 +30,7 @@ namespace CloudThingStoreConsoleApp {
             productService.Add (categoryName, subCategoryName, productName, price);
             System.Console.WriteLine ("Product is Added Successfully");
         }
-        internal void DisplayAllProducts (ProductService productService) {
+        internal void DisplayAllProducts (IProductService productService, ILogger log) {
             var products = productService.Get ();
 
             if (0 == products.Count) {
@@ -51,7 +53,7 @@ namespace CloudThingStoreConsoleApp {
                 System.Console.WriteLine ("");
             }
         }
-        internal void ProductUpdate (ProductService productService) {
+        internal void ProductUpdate (IProductService productService, ILogger log) {
             int id = 0;
             string productName = "";
             decimal price = 0;
@@ -75,7 +77,7 @@ namespace CloudThingStoreConsoleApp {
             }
             System.Console.WriteLine ("Product is Updated Successfully");
         }
-        internal void DeleteProduct (ProductService productService) {
+        internal void DeleteProduct (IProductService productService, ILogger log) {
             System.Console.WriteLine ("Please enter Product ID - ");
             int id = 0;
             try {
@@ -87,10 +89,10 @@ namespace CloudThingStoreConsoleApp {
                 System.Console.WriteLine ("Deleted Successfully");
             else System.Console.WriteLine ("Prodcut Id does not Exist.");
         }
-        internal void ProductInventoryInFile(ProductService productService)
-        {
+        internal void ProductInventoryInFile(IProductService productService, ILogger log)
+        { 
+            productService.WriteToFile(ProjectConfig.GetFilePath().write);
             
-            //productService.WriteToFile(            );
             Console.WriteLine(@"File is Prepared please go following path - C:\Users\RahulMarwaha\Desktop\CloudThingProducts\products.txt");
         }
     }

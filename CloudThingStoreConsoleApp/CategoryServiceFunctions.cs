@@ -1,6 +1,7 @@
 using CloudThingStore.Services.Entities;
 using CloudThingStore.Services.Exceptions;
 using CloudThingStore.Services.Service;
+using Microsoft.Extensions.Logging;
 using System;
 namespace CloudThingStoreConsoleApp
 {
@@ -8,7 +9,7 @@ namespace CloudThingStoreConsoleApp
         ProductCategory category;
         int id = 0;
         string name = "";
-        internal void Add (ProductCategoryService categoryService) {
+        internal void Add (IProductCategoryService categoryService, ILogger log) {
             Console.Write ($"\nPlease enter Category - ");
            
             try {
@@ -19,7 +20,7 @@ namespace CloudThingStoreConsoleApp
            
             Console.WriteLine ("Category Added Successfully");
         }
-        internal void Print (ProductCategoryService categoryService) {
+        internal void Print (IProductCategoryService categoryService, ILogger log) {
             Console.WriteLine ("\nList of Category");
            
             var categoryList = categoryService.Get ();
@@ -32,7 +33,7 @@ namespace CloudThingStoreConsoleApp
             categoryList.ForEach (element =>
                 Console.WriteLine ($"Id - {element.Id}  Name - {element.Name}"));
         }
-        internal void Update (ProductCategoryService categoryService) {
+        internal void Update (IProductCategoryService categoryService, ILogger log) {
             Console.Write ("\nPlease enter Id - ");
            
             try {
@@ -53,7 +54,7 @@ namespace CloudThingStoreConsoleApp
            
             Console.WriteLine ("Category Updated Successfully");
         }
-        internal void Search (ProductCategoryService categoryService) {
+        internal void Search (IProductCategoryService categoryService, ILogger log) {
             Console.Write ("\nPlease enter Id or Name- ");
            
             name = Console.ReadLine ();
@@ -68,7 +69,9 @@ namespace CloudThingStoreConsoleApp
            
             Console.WriteLine ($"Id- {category.Id} Name - {category.Name}");
         }
-        internal void Delete (ProductCategoryService categoryService) {
+
+
+        internal void Delete (IProductCategoryService categoryService, ILogger log) {
             Console.Write ("\nPlease enter Id - ");
            
             try {

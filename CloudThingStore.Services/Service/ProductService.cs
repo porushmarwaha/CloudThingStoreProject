@@ -5,13 +5,13 @@ using System.IO;
 
 namespace CloudThingStore.Services.Service
 {
-    public class ProductService
+    public class ProductService : IProductService
     {
         private int _count = 0;
         private readonly List<Product> _Products;
-        private readonly ProductCategoryService _CategoryService;
+        private readonly IProductCategoryService _CategoryService;
 
-        public ProductService(ProductCategoryService categoryService)
+        public ProductService(IProductCategoryService categoryService)
         {
             _Products = new List<Product>();
             _CategoryService = categoryService;

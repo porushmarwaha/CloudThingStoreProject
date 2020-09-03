@@ -1,7 +1,7 @@
 ﻿
 namespace CloudThingStore.Services.Entities
 {
-    public class Product
+    public class Product : IProduct
     {
         public int Id { get; internal set; }
         public string Name { get; set; }
